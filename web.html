@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نيوز الإخبارية</title>
+    <link rel="icon" href="https://i.ibb.co/VcFg4Pz9/ln1.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-radius: 0px !important;
+        }
+
+        body {
+            font-family: lenos;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* HEADER */
+        header {
+            background: #fff;
+            border-bottom: 2px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            max-width: 120px;
+            display: block;
+            margin: 0 auto 15px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            padding: 8px 15px;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: #f0f0f0;
+            color: #d3202e;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* SLIDER */
+        .slider-section {
+            margin: 30px 0;
+        }
+
+        .slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: #fff;
+        }
+
+        .slide-tag {
+            display: inline-block;
+            background: #d3202e;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .slide-title {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
+            color: #fff;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .slider-arrow.prev { right: 15px; }
+        .slider-arrow.next { left: 15px; }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #fff;
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        /* ARTICLES GRID */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .article-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-body {
+            padding: 20px;
+        }
+
+        .article-tag {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .article-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .article-excerpt {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: black;
+            margin: 50px 0 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #d3202e;
+        }
+
+        /* INSTAGRAM SECTION */
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .instagram-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 1;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .instagram-item:hover {
+            transform: scale(1.05);
+        }
+
+        .instagram-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .instagram-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .instagram-item:hover .instagram-overlay {
+            opacity: 1;
+        }
+
+        .instagram-icon {
+            font-size: 40px;
+            color: #fff;
+        }
+
+        .instagram-button {
+            display: block;
+            text-align: center;
+            background: black;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            max-width: 250px;
+            margin: 0 auto;
+            transition: transform 0.3s;
+        }
+
+        .instagram-button:hover {
+            transform: translateY(-3px);
+        }
+
+        /* PROGRAMS SECTION */
+        .programs-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .program-tab {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .program-tab:hover {
+            border-color: #d3202e;
+        }
+
+        .program-tab.active {
+            background: #d3202e;
+            color: #fff;
+            border-color: #d3202e;
+        }
+
+        .program-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .program-content {
+            display: none;
+        }
+
+        .program-content.active {
+            display: block;
+        }
+
+        .program-episodes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .episode-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .episode-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .episode-info {
+            padding: 20px;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .episode-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* MEDIA CATEGORIES */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .media-card {
+            position: relative;
+            height: 450px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .media-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .media-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .media-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .media-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 40px 20px 20px;
+            color: #fff;
+        }
+
+        .media-label h3 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* BOTTOM TICKER */
+        .bottom-ticker {
+            background: white;
+            color: black;
+            padding: 12px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            direction: ltr;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 55px;
+        }
+
+
+        .ticker-label {
+            background: #d2202e;
+            color: white;
+            padding: 10px 25px;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            animation: blinkBg 2s ease-in-out infinite;
+            font-size: 24px;
+        }
+
+        .ticker-content {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: scroll 45s linear infinite;
+        }
+
+        .ticker-item {
+            padding: 0 50px;
+            display: inline-flex;
+            align-items: center;
+            font-size: 15px;
+            direction: rtl;
+            unicode-bidi: plaintext;
+        }
+
+        .ticker-item::before {
+            content: "■";
+            color: #d2202e;
+            margin-left: 10px;
+            margin-right: 0;
+            animation: pulse 0.8s ease-in-out infinite;
+        }
+
+        @keyframes scroll {
+           0% { transform: translateX(-50%); }
+           100% { transform: translateX(100%); }
+        }
+
+        .ticker-time {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #d2202e;
+            background: white;
+            padding: 0 25px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.15);
+            z-index: 11;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            overflow-y: auto;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(0,0,0,0.8);
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-body {
+            padding: 35px;
+        }
+
+        .modal-tag {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 6px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .modal-text {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #444;
+            white-space: pre-line;
+        }
+        
+.quote1 {
+    display: block;
+    background: #f1f1f1;
+    padding: 40px 50px;
+    margin: 30px 0;
+    border: 5px solid #000;
+    border-radius: 0;
+    font-family: 'lenos', sans-serif;
+    color: #1a1a1a;
+    font-size: 18px;
+    line-height: 2;
+    position: relative;
+    box-shadow: none;
+    text-align: justify;
+}
+
+.quote1::before,
+.quote1::after {
+    content: ',,';
+    font-size: 80px;
+    color: #000;
+    position: absolute;
+    font-weight: 900;
+    line-height: 0.5;
+    font-family: Arial, sans-serif;
+}
+
+.quote1::before {
+    top: 10px;
+    left: 10px;
+    transform: rotate(180deg);
+}
+
+.quote1::after {
+    bottom: 10px;
+    right: 10px;
+}
+
+        .h11 {
+            color: #000;
+            font-size: 19px;
+            font-weight: 600;
+            margin: 20px 0 15px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .slide-image {
+                height: 350px;
+            }
+
+            .slide-title {
+                font-size: 20px;
+            }
+
+            .modal-image {
+                height: 250px;
+            }
+
+            .modal-title {
+                font-size: 22px;
+            }
+
+            .programs-tabs {
+                gap: 8px;
+            }
+
+            .program-tab {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .ticker-content {
+                padding: 0 140px 0 100px;
+            }
+
+            .ticker-label {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+
+        .articles-data {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img class="logo" src="https://i.ibb.co/PvG2mdRg/image.png" alt="نيوز">
+            <nav>
+                <a href="#">الرئيسية</a>
+                <a href="#">العالم</a>
+                <a href="#">سياسة</a>
+                <a href="#">اقتصاد</a>
+                <a href="#">تكنولوجيا</a>
+                <a href="#">رياضة</a>
+                <a href="#">ثقافة</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- SLIDER -->
+        <section class="slider-section">
+            <div class="slider">
+                <div class="slides" id="slides">
+                    <div class="slide" data-id="1">
+                        <img src="https://i.ibb.co/n873VWTb/1564403104-469-435869-mict-aerial51127.jpg" alt="خبر 1" class="slide-image">
+                        <div class="slide-overlay">
+                            <span class="slide-tag">إقتصاد</span>
+                            <h2 class="slide-title">الجمارك: إيرادات غير مسبوقة منذ 2003 تؤكد نجاح الإصلاحات الحكومية</h2>
+                        </div>
+                    </div>
+                    <div class="slide" data-id="2">
+                        <img src="https://i.ibb.co/fZgSKQv/image1170x530cropped.jpg" alt="خبر 2" class="slide-image">
+                        <div class="slide-overlay">
+                            <span class="slide-tag">العراق</span>
+                            <h2 class="slide-title">رئيس الوزراء: العراق لا يمكنه نزع سلاح الميليشيات إلا بعد رحيل القوات الأميركية من البلاد</h2>
+                        </div>
+                    </div>
+                    <div class="slide" data-id="3">
+                        <img src="https://i.ibb.co/twYmq56c/image1024x768.jpg" alt="خبر 3" class="slide-image">
+                        <div class="slide-overlay">
+                            <span class="slide-tag">عالمي</span>
+                            <h2 class="slide-title">منظمة أنقذوا الأطفال: رقم قياسي جديد لعدد الأطفال المتأثرين بالحروب حول العالم</h2>
+                        </div>
+                    </div>
+                    <div class="slide" data-id="4">
+                        <img src="https://i.ibb.co/Gf1HLNjc/thumbs-b-c-7509484654ba95a2566867707f561755.jpg" alt="خبر 4" class="slide-image">
+                        <div class="slide-overlay">
+                            <span class="slide-tag">عالمي</span>
+                            <h2 class="slide-title">وزير المالية الإسرائيلي: تكلفة الحرب على غزة بلغت 66 مليار دولار</h2>
+                        </div>
+                    </div>
+                    <div class="slide" data-id="5">
+                        <img src="https://i.ibb.co/RG3BcKSw/RTS2FAGF.jpg" alt="خبر 5" class="slide-image">
+                        <div class="slide-overlay">
+                            <span class="slide-tag">العراق</span>
+                            <h2 class="slide-title">بسبب «الكردستاني» هل الأمن العراقي بخطر؟</h2>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-arrow prev" onclick="moveSlide(1)">›</button>
+                <button class="slider-arrow next" onclick="moveSlide(-1)">‹</button>
+                <div class="slider-dots">
+                    <span class="dot active" onclick="goToSlide(0)"></span>
+                    <span class="dot" onclick="goToSlide(1)"></span>
+                    <span class="dot" onclick="goToSlide(2)"></span>
+                    <span class="dot" onclick="goToSlide(3)"></span>
+                    <span class="dot" onclick="goToSlide(4)"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARTICLES -->
+        <section class="articles-grid">
+            <article class="article-card" data-id="6">
+                <img src="https://i.ibb.co/fz1jHF3X/image.jpg" alt="ثقافة" class="article-image">
+                <div class="article-body">
+                    <span class="article-tag">ثقافة</span>
+                    <h3 class="article-title">لماذا ترتجف الجماعات المتطرفة أمام حضارة الفراعنة؟</h3>
+                    <p class="article-excerpt">كلما عاد الحديث عن الحضارة المصرية القديمة، نجد...</p>
+                </div>
+            </article>
+            <article class="article-card" data-id="7">
+                <img src="https://i.ibb.co/HLbmjKLN/202501211756-main-cropped-1737457023.jpg" alt="رياضة" class="article-image">
+                <div class="article-body">
+                    <span class="article-tag">رياضة</span>
+                    <h3 class="article-title">أنشيلوتي يسمي الكبار ويستبعد برشلونة: "الملكي" في صدارة المرشحين للتتويج الأوروبي</h3>
+                    <p class="article-excerpt">اختار كارلو أنشيلوتي، المدير الفني لمنتخب البرازيل...</p>
+                </div>
+            </article>
+            <article class="article-card" data-id="8">
+                <img src="https://i.ibb.co/FFTyR0X/Getty-Images-2207483640.jpg" alt="عالمي" class="article-image">
+                <div class="article-body">
+                    <span class="article-tag">عالمي</span>
+                    <h3 class="article-title">المبعوث الأميركي يمنح لبنان مهلة محدودة لمعالجة ملف سلاح حزب الله</h3>
+                    <p class="article-excerpt">أفادت مصادر إعلامية أن المبعوث الأميركي توم براك...</p>
+                </div>
+            </article>
+            <article class="article-card" data-id="9">
+                <img src="https://i.ibb.co/Y4hmYTnY/Memory-Storage-Strategy-by-Kristina-Armitage-Lede-scaled.webp" alt="صحة" class="article-image">
+                <div class="article-body">
+                    <span class="article-tag">صحة</span>
+                    <h3 class="article-title">دراسة: تزايد مشاكل الذاكرة بين الشباب يثير قلق الخبراء</h3>
+                    <p class="article-excerpt">أظهرت دراسة حديثة أن مشاكل الذاكرة والتركيز...</p>
+                </div>
+            </article>
+            <article class="article-card" data-id="10">
+                <img src="https://i.ibb.co/b5VSrvLR/large.jpg" alt="العراق" class="article-image">
+                <div class="article-body">
+                    <span class="article-tag">العراق</span>
+                    <h3 class="article-title">الحشد ينعى 3 من منتسبيه في انفجار جرف النداف</h3>
+                    <p class="article-excerpt">نعت هيئة الحشد الشعبي، اليوم الثلاثاء، 3 من...</p>
+                </div>
+            </article>
+            <article class="article-card" data-id="11">
+                <img src="https://i.ibb.co/jkNrNv8s/image.jpg" alt="سياسة" class="article-image">
+                <div class="article-body">
+                    <span class="article-tag">سياسة</span>
+                    <h3 class="article-title">السفير السوداني يشيد بمواقف العراق الداعمة لبلاده في مواجهة التحديات الراهنة</h3>
+                    <p class="article-excerpt">استقبل نائب رئيس مجلس الوزراء وزير الخارجية...</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- INSTAGRAM -->
+        <section>
+            <h2 class="section-title">أنستقرام نيوز الإخبارية</h2>
+            <div class="instagram-grid">
+                <div class="instagram-item">
+                    <a href="https://www.instagram.com/newz.iq/reel/DQq4XIniia3/"><img src="https://i.ibb.co/nN3kgZbM/573182203-1373051284404912-7534127000512512717-n.jpg" alt="انستقرام 1"></a>
+                    <div class="instagram-overlay1">
+                        <a href="https://www.instagram.com/newz.iq/reel/DQq4XIniia3/"><img src="https://i.ibb.co/nN3kgZbM/573182203-1373051284404912-7534127000512512717-n.jpg" alt="انستقرام 1"></a>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <a href="https://www.instagram.com/newz.iq/reel/DQpNCIHimD1/"><img src="https://i.ibb.co/TqgHWNZ6/573073611-1771116536881069-2956568362606620923-n.jpg" alt="انستقرام 2"></a>
+                    <div class="instagram-overlay1">
+                        <a href="https://www.instagram.com/newz.iq/reel/DQpNCIHimD1/"><img src="https://i.ibb.co/TqgHWNZ6/573073611-1771116536881069-2956568362606620923-n.jpg" alt="انستقرام 2"></a>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <a href="https://www.instagram.com/newz.iq/reel/DQpEpB8irqI/"><img src="https://i.ibb.co/XffPR8HR/573551598-845435147884222-9098393145812927738-n.jpg" alt="انستقرام 3"></a>
+                    <div class="instagram-overlay1">
+                        <a href="https://www.instagram.com/newz.iq/reel/DQpEpB8irqI/"><img src="https://i.ibb.co/XffPR8HR/573551598-845435147884222-9098393145812927738-n.jpg" alt="انستقرام 3"></a>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <a href="https://www.instagram.com/newz.iq/reel/DQozXz8ChxZ/"><img src="https://i.ibb.co/cmtmCcT/573059151-1306734771205074-4969019395069603298-n.jpg" alt="انستقرام 4"></a>
+                    <div class="instagram-overlay1">
+                        <a href="https://www.instagram.com/newz.iq/reel/DQozXz8ChxZ/"><img src="https://i.ibb.co/cmtmCcT/573059151-1306734771205074-4969019395069603298-n.jpg" alt="انستقرام 4"></a>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <a href="https://www.instagram.com/newz.iq/reel/DQos4X1inif/"><img src="https://i.ibb.co/WWsYg48K/Screenshot-2025-11-05-144957.png" alt="انستقرام 5"></a>
+                    <div class="instagram-overlay1">
+                        <a href="https://www.instagram.com/newz.iq/reel/DQos4X1inif/"><img src="https://i.ibb.co/WWsYg48K/Screenshot-2025-11-05-144957.png" alt="انستقرام 5"></a>
+                    </div>
+                </div>
+                <div class="instagram-item">
+                    <a href="https://www.instagram.com/newz.iq/reel/DQmarNECuDL/"><img src="https://i.ibb.co/qFXtHcSZ/Screenshot-2025-11-05-145129.png" alt="انستقرام 6"></a>
+                    <div class="instagram-overlay1">
+                        <a href="https://www.instagram.com/newz.iq/reel/DQmarNECuDL/"><img src="https://i.ibb.co/qFXtHcSZ/Screenshot-2025-11-05-145129.png" alt="انستقرام 6"></a>
+                    </div>
+                </div>
+            </div>
+            <a href="https://www.instagram.com/newz.iq/" target="_blank" class="instagram-button">تابعنا على انستقرام</a>
+        </section>
+
+        <!-- PROGRAMS -->
+        <section>
+            <h2 class="section-title">نيوز بلس +</h2>
+            <div class="programs-tabs">
+                <button class="program-tab active" onclick="switchProgram('program1')">
+                    <img src="https://i.ibb.co/xKWY4rqP/123.jpg" class="program-logo" alt="ما القصة ؟">
+                    <span>ما القصة ؟</span>
+                </button>
+                <button class="program-tab" onclick="switchProgram('program2')">
+                    <img src="https://i.ibb.co/8LgJMNXJ/1234.jpg" class="program-logo" alt="مختصر">
+                    <span>مختصر</span>
+                </button>
+
+                <!-- معطل مؤقتًا
+                <button class="program-tab" onclick="switchProgram('program3')">
+                    <img src="https://via.placeholder.com/40?text=3" class="program-logo" alt="تحليل">
+                    <span>تحليل</span>
+                </button>
+                !-->
+
+                <!-- معطل مؤقتًا
+                <button class="program-tab" onclick="switchProgram('program4')">
+                    <img src="https://i.ibb.co/DfqK0Qx3/1234567.jpg" class="program-logo" alt="من الذاكرة">
+                    <span>من الذاكرة لن ننسى</span>
+                </button>
+                !-->
+                <button class="program-tab" onclick="switchProgram('program5')">
+                    <img src="https://i.ibb.co/1Y86fw40/12345.jpg" class="program-logo" alt="هاشتاك">
+                    <span>هاشتاك</span>
+                </button>
+                <button class="program-tab" onclick="switchProgram('program6')">
+                    <img src="https://i.ibb.co/p64Vxk4P/123456.jpg" class="program-logo" alt="الجبهة">
+                    <span>الجبهة</span>
+                </button>
+            </div>
+
+<div class="program-content active" id="program1">
+    <div class="program-episodes">
+        <div class="episode-card">
+            <a href="https://www.instagram.com/p/DPCQmWQCv9S/?img_index=1">
+                <img src="https://i.ibb.co/zH7BS4dM/59e7e6d90f323.jpg" alt="حلقة">
+            </a>
+            <div class="episode-info">
+                <h4 class="episode-title">خيانة بارزاني للعراق القصة الكاملة ...</h4>
+                <p class="episode-desc">أضغط للتفاصيل</p>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<div class="program-content" id="program2">
+    <div class="program-episodes">
+        <div class="episode-card">
+            <a href="https://www.instagram.com/p/DPmhfZVjoDs/">
+                <img src="https://i.ibb.co/pv9DsXzM/482390-jpeg.webp" alt="حلقة">
+            </a>
+            <div class="episode-info">
+                <h4 class="episode-title">سر منع اللحى في الجيوش ؟</h4>
+                <p class="episode-desc">أضغط للتفاصيل</p>
+            </div>
+        </div>
+
+        <div class="episode-card">
+            <a href="https://www.instagram.com/p/DQcP63virJB/?img_index=1">
+                <img src="https://i.ibb.co/6cndb3dT/263919077141485113-0-jpeg.webp" alt="حلقة">
+            </a>
+            <div class="episode-info">
+                <h4 class="episode-title">أسباب التدخل الإماراتي في السودان ؟</h4>
+                <p class="episode-desc">أضغط للتفاصيل</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- معطل مؤقتًا
+<div class="program-content" id="program3">
+    <div class="program-episodes">
+        <div class="episode-card">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="حلقة">
+            <div class="episode-info">
+                <h4 class="episode-title">تحليل - الحلقة 1</h4>
+                <p class="episode-desc">تحليل معمق للأحداث السياسية...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="program-content" id="program3">
+                <div class="program-episodes">
+                    <div class="episode-card">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400" alt="حلقة">
+                        <div class="episode-info">
+                            <h4 class="episode-title">تحليل - الحلقة 1</h4>
+                            <p class="episode-desc">تحليل معمق للأحداث السياسية...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+-->
+
+
+<!-- معطل مؤقتًا
+
+            <div class="program-content" id="program4">
+                <div class="program-episodes">
+                    <div class="episode-card">
+                        <img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400" alt="حلقة">
+                        <div class="episode-info">
+                            <h4 class="episode-title">من الذاكرة - الحلقة 1</h4>
+                            <p class="episode-desc">نستذكر أحداثاً مهمة من التاريخ...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+-->
+
+
+            <div class="program-content" id="program5">
+                <div class="program-episodes">
+                    <div class="episode-card">
+                        <a href="https://www.instagram.com/p/DQhALkICoGr/"><img src="https://i.ibb.co/ks2WK36K/6-27.jpg" alt="حلقة"></a>
+                        <div class="episode-info">
+                            <h4 class="episode-title">هاشتاگ #قاطعوا_المنتجات_التركية يتصدر الترند العراقي</h4>
+                            <p class="episode-desc">أضغط للتفاصيل</p>
+                        </div>
+                    </div>
+
+                    <div class="episode-card">
+                        <a href="https://www.instagram.com/p/DQcd9kVjjRS/"><img src="https://i.ibb.co/cSkQ6CQ7/e7933270-b747-11f0-aa13-0b0479f6f42a-jpg.webp" alt="حلقة"></a>
+                        <div class="episode-info">
+                            <h4 class="episode-title">مدونون مصريون يطلقون هـاشتاگ #مصر_ترحب_بالعراق</h4>
+                            <p class="episode-desc">أضغط للتفاصيل</p>
+                        </div>
+                    </div>
+
+                        <div class="episode-card">
+                        <a href="https://www.instagram.com/p/DO0y4VFimnW/"><img src="https://i.ibb.co/VWVBFGfd/525664e4-9bfa-4df3-9b1a-7849b8847d3c.webp" alt="حلقة"></a>
+                        <div class="episode-info">
+                            <h4 class="episode-title">هاشتاك #التطبيع_خيانة يتصدر في عدة دول عربية</h4>
+                            <p class="episode-desc">أضغط للتفاصيل</p>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                
+
+
+            </div>
+
+            <div class="program-content" id="program6">
+                <div class="program-episodes">
+                    <div class="episode-card">
+                        <a href="https://www.instagram.com/p/DQmarNECuDL/"><img src="https://i.ibb.co/ZpKpzKgw/Whats-App-Image-2025-11-02-at-4-22-57-PM.jpg" alt="حلقة"></a>
+                        <div class="episode-info">
+                            <h4 class="episode-title">مونت كارلو: العراق وقع إتفاقية كبرى مع تركيا شملت الاتفاقية نظام الدفاع الجوي «حصار» المصنع في تركيا و صواريخ موجهة و مدرعات و مسيرات</h4>
+                            <p class="episode-desc">أضغط للتفاصيل</p>
+                        </div>
+                    </div>
+
+                        <div class="episode-card">
+                        <a href="https://www.instagram.com/p/DPY7A-RCn1_/"><img src="https://i.ibb.co/hR4P2SVS/K2-black-panther3.jpg" alt="حلقة"></a>
+                        <div class="episode-info">
+                            <h4 class="episode-title">وسائل إعلام كورية جنوبية: العراق يعتزم شراء حزمة من الاسلحة تتضمن ...</h4>
+                            <p class="episode-desc">أضغط للتفاصيل</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- MEDIA CATEGORIES -->
+        <section>
+            <h2 class="section-title">نيوز</h2>
+            <div class="media-grid">
+                <div class="media-card">
+                    <img src="https://i.ibb.co/wF74vhzL/mt3.jpg" alt="تقارير">
+                    <div class="media-label">
+                        <h3>تقارير</h3>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <img src="https://i.ibb.co/Wv9shZ2M/mt1.jpg" alt="المتداول">
+                    <div class="media-label">
+                        <h3>المتداول</h3>
+                    </div>
+                </div>
+                <div class="media-card">
+                    <img src="https://i.ibb.co/6dkMVn5/mt2.jpg" alt="مؤتمر صحفي">
+                    <div class="media-label">
+                        <h3>مؤتمر صحفي</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- BOTTOM TICKER -->
+    <div class="bottom-ticker">
+        <div class="ticker-wrapper">
+            <div class="ticker-label">عاجل</div>
+            <div class="ticker-time" id="tickerTime"></div>
+            <div class="ticker-content">
+                <div class="ticker-track">
+                    <span class="ticker-item">رئيس الوزراء: العراق لا يمكنه نزع سلاح الميليشيات إلا بعد رحيل القوات الأميركية من البلاد</span>
+                    <span class="ticker-item">السجن المؤبد لامرأة عملت ضمن الخلايا النائمة وديوان الإعلام المركزي لداعش</span>
+                    <span class="ticker-item">وزير الموارد يشكو: 70% من مياه دجلة والفرات تذهب للزراعة</span>
+                    <span class="ticker-item">العراق يلغي تحميل ثلاث شحنات نفط خام من شركة "لوك أويل" الروسية بسبب العقوبات الأمريكية</span>
+                    <span class="ticker-item">السوداني يوجه بإيقاف استيراد البنزين والغاز والنفط الأبيض بعد تحقيق الاكتفاء الذاتي</span>
+
+                    <span class="ticker-item">رئيس الوزراء: العراق لا يمكنه نزع سلاح الميليشيات إلا بعد رحيل القوات الأميركية من البلاد</span>
+                    <span class="ticker-item">السجن المؤبد لامرأة عملت ضمن الخلايا النائمة وديوان الإعلام المركزي لداعش</span>
+                    <span class="ticker-item">وزير الموارد يشكو: 70% من مياه دجلة والفرات تذهب للزراعة</span>
+                    <span class="ticker-item">العراق يلغي تحميل ثلاث شحنات نفط خام من شركة "لوك أويل" الروسية بسبب العقوبات الأمريكية</span>
+                    <span class="ticker-item">السوداني يوجه بإيقاف استيراد البنزين والغاز والنفط الأبيض بعد تحقيق الاكتفاء الذاتي</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="" class="modal-image">
+            <div class="modal-body">
+                <span id="modalTag" class="modal-tag"></span>
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <div id="modalText" class="modal-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © نيوز 2025</p>
+    </footer>
+
+    <!-- ARTICLES DATA -->
+    <div class="articles-data">
+        <article class="article-data" data-id="1">
+            <div class="data-image">https://i.ibb.co/n873VWTb/1564403104-469-435869-mict-aerial51127.jpg</div>
+            <div class="data-tag">إقتصاد</div>
+            <div class="data-title">الجمارك: إيرادات غير مسبوقة منذ 2003 تؤكد نجاح الإصلاحات الحكومية</div>
+            <div class="data-content">كشف المدير العام للهيئة العامة للجمارك ثامر الطائي، اليوم الثلاثاء، عن تحقيق قفزة تاريخية في الإيرادات الجمركية، مؤكداً أن الإصلاحات الحكومية الأخيرة في قطاع الجمارك والمنافذ الحدودية أدت إلى نتائج إيجابية كبيرة رفعت الإيرادات إلى أعلى مستوياتها منذ عام 2003.
+
+<h1 class="h11">وذكر الطائي في تصريح للإعلام الرسمي تابعته شبكة نيوز:</h1>
+<div class="quote1">الهيئة العامة للجمارك تمثل إحدى الركائز الأساسية للاقتصاد الوطني، لما تضطلع به من دور محوري في دعم الاقتصاد وتسهيل حركة التجارة عبر تعاونها الوثيق مع هيئة المنافذ الحدودية</div>
+
+، مشيراً إلى أن تطوير آليات العمل وتبسيط الإجراءات كان له دور مباشر في تحقيق هذا الإنجاز.
+
+وأضاف أن الإصلاحات شملت تطبيق نظام الأتمتة وتحديث الهيكل الإداري في الهيئة والمنافذ الحدودية، ما انعكس على تحسين الأداء وزيادة الإيرادات وتقليل فرص الفساد، مبيناً أن الإيرادات سجلت:
+
+1.7 تريليون دينار في عام 2023
+2.145 تريليون دينار في عام 2024
+2.175 تريليون دينار في عام 2025
+
+وأكد الطائي أن هذه الأرقام تمثل الأعلى في تاريخ الهيئة، وتُعد دليلاً واضحاً على نجاح الإصلاحات الإدارية والرقابية التي تبنتها الحكومة. مشيراً إلى أن الهيئة طبّقت نظام “الأسيكودا” العالمي وأنشأت غرفة السيطرة الجمركية لمتابعة المراكز الحدودية على مدار الساعة عبر الربط الشبكي وتحليل صور السونار وتقييم المخاطر.
+
+واختتم بالقول إن الهيئة لا تُعد جهة إيرادية فقط، بل جهة رقابية تحمي الاقتصاد الوطني وتعمل على ترسيخ مبادئ الشفافية والكفاءة بما ينسجم مع مسار الإصلاح الاقتصادي في العراق.</div>
+        </article>
+
+<article class="article-data" data-id="2">
+    <div class="data-image">https://i.ibb.co/XZgwRwW8/noonpost-9055315-jpg.webp</div>
+    <div class="data-tag">العراق</div>
+    <div class="data-title">رئيس الوزراء: العراق لا يمكنه نزع سلاح الفصائل إلا بعد رحيل القوات الأميركية من البلاد</div>
+    <div class="data-content">
+
+      <h1 class="h11">قال رئيس مجلس الوزراء العراقي محمد شياع السوداني:</h1>
+<div class="quote1">  العراق لن يتمكن من نزع سلاح الفصائل المسلحة إلا بعد مغادرة القوات الأميركية من البلاد، داعش غير موجود. الأمن والاستقرار؟ الحمد لله متوفرة. أعطني عذر واحد لتواجد 86 دولة في تحالف 
+</div>
+        وأضاف السوداني أن أي أسلحة خارج مؤسسات الدولة سيتم التعامل معها من خلال برنامج واضح بعد رحيل القوات الدولية، مشيرًا إلى إمكانية دمج عناصر الفصائل في قوات الأمن الرسمية أو توجيههم للعمل السياسي بعد تسليم أسلحتهم.
+
+        وتأتي تصريحات السوداني قبيل الانتخابات البرلمانية المرتقبة، في إطار سعي الحكومة لتحقيق توازن دقيق بين الدعم الأميركي للعلاقات الاقتصادية والتأثير الإقليمي على الفصائل المسلحة، بما يضمن استقرار البلاد.
+
+        ويُذكر أن القوات الأميركية بدأت الانسحاب من قواعد رئيسية في العراق، ضمن خطة تم الاتفاق عليها عام 2024، تشمل مغادرة قاعدة عين الأسد الجوية وتقليص التواجد في بغداد بحلول سبتمبر 2025.
+
+        كما يعكس تخصيص 700 مليون دولار إضافية للفصائل المسلحة في ميزانية 2023 حجم الدعم الحكومي لها، في سياق جهود دمجها تدريجيًا ضمن مؤسسات الدولة.</div>
+</article>
+
+        <article class="article-data" data-id="3">
+            <div class="data-image">https://i.ibb.co/twYmq56c/image1024x768.jpg</div>
+            <div class="data-tag">عالمي</div>
+            <div class="data-title">منظمة أنقذوا الأطفال: رقم قياسي جديد لعدد الأطفال المتأثرين بالحروب حول العالم</div>
+            <div class="data-content">
+                حذّرت منظمة أنقذوا الأطفال من ارتفاع غير مسبوق في عدد الأطفال الذين يعيشون في مناطق النزاع، موضحة أن نحو 520 مليون طفل عاشوا العام الماضي في مناطق تشهد صراعات مسلحة، وهو أعلى رقم منذ بدء المنظمة هذا النوع من الإحصاءات عام 2005.
+وذكرت المنظمة، في تقرير صدر من مقرها في برلين، أن هذا العدد يمثل زيادة بنحو 47 مليون طفل مقارنة بعام 2023، أي أن واحداً من كل خمسة أطفال حول العالم متأثر بشكل مباشر بالحروب.
+وأشار التقرير إلى توثيق أكثر من 41 ألف انتهاك ضد الأطفال في مناطق النزاع خلال العام الماضي، بزيادة بلغت 30% عن العام السابق، لافتاً إلى أن أكثر من نصف هذه الانتهاكات وقعت في الأراضي الفلسطينية المحتلة، والكونغو الديمقراطية، ونيجيريا، والصومال.
+وقال المدير التنفيذي للمنظمة في ألمانيا فلوريان فيستفال إن هذا الوضع يُظهر أن "هناك حاجة ماسة إلى تحرك سياسي عاجل"، مضيفاً أن "الإنفاق العسكري العالمي يتزايد في وقت يُهمل فيه العالم حماية الأطفال من ويلات الحرب"، واصفاً ذلك بـ"الفضيحة الإنسانية".
+وأوضح التقرير أن التحليل استند إلى بيانات من معهد بريو لأبحاث السلام في أوسلو وتقارير الأمم المتحدة، وأن مصطلح منطقة النزاع يُستخدم لوصف أي منطقة تقع ضمن 50 كيلومتراً من موقع شهد حدثاً عسكرياً واحداً على الأقل خلال العام.</div>
+        </article>
+
+        <article class="article-data" data-id="4">
+            <div class="data-image">https://i.ibb.co/Gf1HLNjc/thumbs-b-c-7509484654ba95a2566867707f561755.jpg</div>
+            <div class="data-tag">عالمي</div>
+            <div class="data-title">وزير المالية الإسرائيلي: تكلفة الحرب على غزة بلغت 66 مليار دولار</div>
+            <div class="data-content">
+                كشف وزير المالية الإسرائيلي بتسلئيل سموتريتش أن تكلفة الحرب على غزة وصلت حتى الآن إلى نحو 250 مليار شيكل (66 مليار دولار)، من بينها 21 مليار شيكل (5.5 مليارات دولار) خُصصت للتعويضات.
+                وخلال مؤتمر عُقد لعرض الخطوط العريضة لموازنة عام 2026، التي تركز بشكل أساسي على قطاع الدفاع، قال سموتريتش:
+             <h1 class="h11">وخلال مؤتمر عُقد لعرض الخطوط العريضة لموازنة عام 2026، التي تركز بشكل أساسي على قطاع الدفاع، قال سموتريتش:</h1>
+     <div class="quote1">رغم أن الحرب كلّفتنا ربع تريليون شيكل، طلبت من رئيس الوزراء (بنيامين نتنياهو) مواصلة الحرب طالما كان ذلك ضرورياً، فأنا مسؤول عن الاقتصاد</div>
+     وأوضح الوزير أن ميزانية الدفاع لعام 2026 ستتراوح بين 80 و90 مليار شيكل (21 إلى 24 مليار دولار)، واصفاً إياها بأنها "ميزانية أساسية".
+كما توقع سموتريتش أن يبلغ عجز الموازنة مع نهاية العام الجاري 4.5%، على أن ينخفض إلى 3.2% في عام 2026، مشيراً إلى أن هذا المستوى من العجز "جيد ومقبول" وفق تقديره.</div>
+        </article>
+
+        <article class="article-data" data-id="5">
+            <div class="data-image">https://i.ibb.co/KzrSWjQK/pkk-fighters-withdraw-turkey-26oct2025-reuters-jpg.jpg</div>
+            <div class="data-tag">العراق</div>
+            <div class="data-title">هل يشكل انسحاب الكردستاني من تركيا تهديدًا للأمن العراقي؟</div>
+            <div class="data-content">أثار إعلان حزب العمال الكردستاني انسحاب مقاتليه من الأراضي التركية وتمركزهم داخل العراق، موجة قلق في الأوساط السياسية والأمنية.
+
+أكد الخبير في الشؤون الاستراتيجية حسين الأسعد لـ"بغداد اليوم" أن انتقال عناصر الحزب نحو الأراضي العراقية "تطور مقلق"، محذرًا من احتمالية فتح الباب أمام تدخلات تركية جديدة قد تهدد الأمن الوطني.
+
+وأوضح الأسعد أن وجود الحزب في مناطق مثل قنديل وسيدكان وسنجار قد يؤدي إلى احتكاكات ميدانية أو توترات سياسية بين بغداد وأربيل، خصوصًا في ظل هشاشة السيطرة الحكومية في تلك المناطق.
+
+ودعا الحكومة إلى تحرك دبلوماسي عاجل مع كل من تركيا والقيادة الكردية لضمان عدم تحول الأراضي العراقية إلى ساحة صراع جديدة، ولضبط الحدود ومنع أي تصعيد محتمل.
+
+يذكر أن حزب العمال الكردستاني أعلن مؤخرًا انسحابه الكامل من تركيا في إطار مسار "السلام"، مؤكداً أن الخطوة تهدف إلى تجنب الصدامات وتهيئة الأجواء لحل سياسي دائم.</div>
+        </article>
+
+        <article class="article-data" data-id="6">
+            <div class="data-image">https://i.ibb.co/fz1jHF3X/image.jpg"</div>
+            <div class="data-tag">ثقافة</div>
+            <div class="data-title">لماذا ترتجف الجماعات المتطرفة أمام حضارة الفراعنة؟</div>
+            <div class="data-content">
+                             <h1 class="h11">من المهم التأكيد أولاً أن الحديث هنا لا يخص الإسلام كدين، فالإسلام الحقيقي دين سلام وعدل وتسامح، وإنما المقصود هم الإسلاميون المتطرفون الذين أساؤوا للدين بتصرفاتهم وأفكارهم المنغلقة.</h1>
+                             كلما عاد الحديث عن الحضارة المصرية القديمة، نجد الجماعات المتطرفة تستشيط غضباً، وكأن ذكر الفراعنة يهدد فكرها ويكشف زيف شعاراتها. هذا الخوف ليس من الماضي نفسه، بل من الفكر الحرّ والعقل المتفتح الذي مثّلته تلك الحضارة العريقة.
+الفراعنة بنوا حضارة تقوم على العلم والتنظيم والإبداع واحترام الإنسان، وهي قيم تتعارض تماماً مع فكر التطرف الذي يقوم على التحريض والانعزال ورفض الآخر. المتطرف لا يحتمل فكرة أن المصريين صنعوا مجداً إنسانياً قبل آلاف السنين، لأن ذلك ينسف روايته التي تختصر التاريخ في جماعته وحدها.
+هذه الجماعات تحاول دائماً إلغاء الهوية الوطنية لصالح هوية دينية مشوهة، فتهاجم التاريخ والآثار والتعليم والفن، لأنها أدوات تبني الوعي. أما الوعي فهو العدو الأكبر للتطرف، لأنه يحرّر الإنسان من الخوف والتبعية.
+ما يخيف المتطرفين في الفراعنة هو أن رموز الحضارة المصرية – كالأهرامات والمعابد والنقوش – تُذكّر الناس بأن قوتهم في فكرهم وإبداعهم وليس في الانغلاق والكراهية. المصري الذي يعرف تاريخه لا يمكن أن ينخدع بخطاب يحاول جره إلى الظلام.
+في النهاية، لا خوف من الماضي، بل من الذين يريدون دفن الحاضر والمستقبل باسم الدين. فالإسلام بريء من فكر التطرف، بل يدعو إلى العلم والتفكر والبناء، وهي القيم نفسها التي جسدها المصريون القدماء وخلّدت اسمهم في التاريخ.</div>
+        </article>
+
+        <article class="article-data" data-id="7">
+            <div class="data-image">https://i.ibb.co/HLbmjKLN/202501211756-main-cropped-1737457023.jpg</div>
+            <div class="data-tag">رياضة</div>
+            <div class="data-title">أنشيلوتي يسمي الكبار ويستبعد برشلونة: “الملكي” في صدارة المرشحين للتتويج الأوروبي</div>
+            <div class="data-content">
+                اختار كارلو أنشيلوتي، المدير الفني لمنتخب البرازيل، قائمة الأندية التي يراها الأقرب للتتويج بلقب دوري أبطال أوروبا لموسم 2025-2026، مستبعداً نادي برشلونة من دائرة المنافسة.
+                ويُعد أنشيلوتي أحد أكثر المدربين تتويجاً في تاريخ البطولة الأوروبية، إذ فاز باللقب خمس مرات — مرتين مع ميلان وثلاث مرات مع ريال مدريد — قبل أن يغادر النادي الإسباني بنهاية الموسم الماضي لتولي تدريب المنتخب البرازيلي بعقد يمتد لعام واحد.
+             <h1 class="h11">وفي حديث صحفي حديث تابعته نيوز الإخبارية:</h1>
+             <div class="quote1">المرشحون الأقوياء للفوز بدوري أبطال أوروبا كما هو معتاد: ريال مدريد، بايرن ميونخ، مانشستر سيتي، وباريس سان جيرمان</div>
+                كما أشاد المدرب الإيطالي بالنجم الكرواتي لوكا مودريتش، لاعب إي سي ميلان حالياً وأسطورة ريال مدريد سابقاً، قائلاً
+             <div class="quote1">لوكا مودريتش لا يفاجئني، لم يتغيب قط عن حصة تدريبية واحدة مع ريال مدريد</div>
+            </div>
+    
+</article>
+
+        <article class="article-data" data-id="8">
+            <div class="data-image">https://i.ibb.co/FFTyR0X/Getty-Images-2207483640.jpg</div>
+            <div class="data-tag">عالمي</div>
+            <div class="data-title">المبعوث الأميركي يمنح لبنان مهلة محدودة لمعالجة ملف سلاح حزب الله</div>
+            <div class="data-content">
+                أفادت مصادر إعلامية أن المبعوث الأميركي توم براك أبلغ القيادة اللبنانية بضرورة اتخاذ خطوات ملموسة بشأن ملف سلاح حزب الله قبل نهاية شهر نوفمبر الحالي، محذرًا من أن استمرار الجمود قد يفتح الباب أمام تصعيد عسكري.
+ووفقًا للتقارير، أوضح براك أن واشنطن قد تتفهم أي تحرك عسكري إسرائيلي إذا لم يطرأ تغيير فعلي على الوضع القائم، مشيرًا إلى أن صبر المجتمع الدولي بدأ ينفد من غياب الحلول السياسية داخل لبنان.
+في المقابل، تواصل إسرائيل استعداداتها لجولة قتال محتملة مع حزب الله قد تمتد لأيام، في ظل تصاعد التهديدات المتبادلة، بينما تسعى تل أبيب إلى الضغط على الحكومة اللبنانية لتحجيم نفوذ الحزب ونزع سلاحه.
+ويأتي ذلك وسط أجواء إقليمية مشحونة، مع تزايد المخاوف من انزلاق الأوضاع إلى مواجهة واسعة جديدة بين لبنان وإسرائيل قد تمتد آثارها إلى المنطقة بأكملها.</div>
+        </article>
+
+        <article class="article-data" data-id="9">
+            <div class="data-image">https://i.ibb.co/Y4hmYTnY/Memory-Storage-Strategy-by-Kristina-Armitage-Lede-scaled.webp</div>
+            <div class="data-tag">صحة</div>
+            <div class="data-title">دراسة: تزايد مشاكل الذاكرة بين الشباب يثير قلق الخبراء</div>
+            <div class="data-content">
+
+                أظهرت دراسة حديثة أن مشاكل الذاكرة والتركيز تتزايد بشكل مقلق بين البالغين دون سن الأربعين، خصوصاً بين الفئات ذات الدخل المنخفض والمحرومة اجتماعياً، ما يثير مخاوف بشأن التأثيرات طويلة المدى على الصحة العامة.
+وخلال السنوات العشر الأخيرة، ارتفعت معدلات صعوبات الذاكرة والتفكير في الولايات المتحدة من 5.3% إلى 7.4%، مع تسجيل أعلى نسب بين الأمريكيين الأصليين وسكان ألاسكا الأصليين. ويشير الباحثون إلى أن العوامل الاقتصادية والتعليمية تلعب دوراً رئيسياً في هذا الارتفاع.
+      <h1 class="h11">وقال الباحث آدم دي هافنون من جامعة ييل:</h1><div class="quote1">مشاكل الذاكرة والتفكير أصبحت من أبرز القضايا الصحية بين البالغين في الولايات المتحدة، وبيّنت دراستنا أنها تزداد بوضوح بين فئات الشباب وذوي الدخل المحدود.</div>
+وبيّنت الدراسة أن الأشخاص الذين يقل دخلهم عن 35 ألف دولار سنوياً أكثر عرضة لمشاكل الذاكرة بنسبة وصلت إلى 12.6%، مقارنة بـ 3.9% فقط بين من يتجاوز دخلهم 75 ألف دولار. كما ارتفعت معدلات الاضطرابات بين من لم يكملوا التعليم الثانوي إلى 14.3%.
+ونشرت النتائج في مجلة Neurology، مؤكدة أن الاختلالات المعرفية المبلّغ عنها ذاتياً تتزايد باستمرار، مع فروقات واضحة حسب العمر والدخل والمستوى التعليمي.
+وحذّر الخبراء من أن هذه الاتجاهات تعكس تحدياً متنامياً للصحة العامة، داعين إلى توسيع فرص الرعاية الصحية والتعليمية ومعالجة العوامل الاجتماعية المؤثرة على صحة الدماغ قبل تفاقم الأزمة.</div>
+        </article>
+
+        <article class="article-data" data-id="10">
+            <div class="data-image">https://i.ibb.co/b5VSrvLR/large.jpg</div>
+            <div class="data-tag">العراق</div>
+            <div class="data-title">الحشد ينعى 3 من منتسبيه في انفجار جرف النداف</div>
+   <div class="data-content">
+نعت هيئة الحشد الشعبي، اليوم الثلاثاء، ثلاثة من منتسبيها استشهدوا جراء انفجار وقع داخل أحد المعسكرات في منطقة جرف النداف جنوبي العاصمة بغداد.
+
+      <h1 class="h11">ونشرت الهيئة بيان تلقته شبكة نيوز الإخبارية :</h1>
+<div class="quote1"> بسم الله الرحمن الرحيم
+
+{وَلَا تَحْسَبَنَّ الَّذِينَ قُتِلُوا فِي سَبِيلِ اللَّهِ أَمْوَاتًا بَلْ أَحْيَاءٌ عِندَ رَبِّهِمْ يُرْزَقُونَ}
+
+تنعى هيئة الحشد الشعبي ببالغ الحزن والفخر شهداءها الأبرار الذين ارتقوا أثناء تأديتهم الواجب المقدس في بغداد، اليوم ، وهم:
+
+• الشهيد المجاهد مرتضى كاظم الدراجي
+• الشهيد المجاهد محمد عبد الرحمن المطيري
+• الشهيد المجاهد وعد حسن العماري
+
+لقد سطر هؤلاء الأبطال بدمائهم صفحات من العزة والفداء، مؤكدين أن الحشد الشعبي سيبقى الدرع الحامي للعراق وأهله، ولن يتراجع لحظة عن الدفاع عن أرضه وسيادته ومقدساته، مواصلين طريق الشهادة الذي اختاره شهداؤنا الأبرار.
+
+تتقدّم الهيئة بأحرّ التعازي والمواساة إلى ذوي الشهداء ورفاقهم في السلاح، سائلةً الله أن يتغمّدهم بواسع رحمته ويسكنهم فسيح جناته، وأن يمنّ على الجرحى بالشفاء العاجل.
+
+إنا لله وإنا إليه راجعون
+
+هيئة الحشد الشعبي
+٤ تشرين الثاني ٢٠٢٥
+
+#المديرية_العامة_للإعلام</div></div>
+        </article>
+
+        <article class="article-data" data-id="11">
+            <div class="data-image">https://i.ibb.co/jkNrNv8s/image.jpg</div>
+            <div class="data-tag">سياسة</div>
+            <div class="data-title">السفير السوداني يشيد بمواقف العراق الداعمة لبلاده في مواجهة التحديات الراهنة</div>
+            <div class="data-content">
+استقبل نائب رئيس مجلس الوزراء وزير الخارجية، فؤاد حسين، يوم الثلاثاء، سفير جمهورية السودان لدى العراق، عبد الرحيم سر الختم، في مكتبه بمقر الوزارة. 
+      <h1 class="h11">وذكرت الوزارة في بيان تلقته نيوز الإخبارية:</h1><div class="quote1"> اللقاء تناول بحث العلاقات الثنائية بين البلدين وسبل تعزيزها في مختلف المجالات بما يخدم المصالح المشتركة للشعبين، مشيرةً إلى أنه "تم استعراض عدد من القضايا الإقليمية والدولية ذات الاهتمام المشترك".
+</div>وأضاف البيان أن الوزير فؤاد حسين "أشاد بعمق العلاقات التاريخية التي تجمع العراق والسودان"، مؤكداً "حرص الحكومة العراقية على تطوير التعاون الثنائي في المجالات السياسية والاقتصادية والثقافية".
+من جانبه، قدم السفير عبد الرحيم سر الختم "عرضاً عن الأوضاع الأمنية الأخيرة في السودان"، معبّراً عن "شكره وتقديره لمواقف العراق الداعمة لبلاده في مواجهة التحديات الراهنة"، ومثمّناً "جهود الحكومة العراقية في ترسيخ الأمن والاستقرار في المنطقة".</div>
+        </article>
+
+    <script>
+// SLIDER
+let slideIndex = 0;
+const slides = document.getElementById('slides');
+const dots = document.querySelectorAll('.dot');
+const totalSlides = 5;
+
+function moveSlide(direction) {
+    slideIndex -= direction;
+    if (slideIndex < 0) slideIndex = totalSlides - 1;
+    if (slideIndex >= totalSlides) slideIndex = 0;
+    updateSlider();
+}
+
+function goToSlide(index) {
+    slideIndex = index;
+    updateSlider();
+}
+
+function updateSlider() {
+    slides.style.transform = `translateX(${slideIndex * 100}%)`;
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === slideIndex);
+    });
+}
+
+setInterval(() => moveSlide(-1), 5000);
+
+// TIME UPDATE
+function updateTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const displayHours = hours % 12 || 12;
+    document.getElementById('tickerTime').textContent = `${displayHours}:${minutes} ${ampm}`;
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+// MODAL
+function openModal(id, pushState = true) {
+    const article = document.querySelector(`.article-data[data-id="${id}"]`);
+    if (!article) return;
+
+    const image = article.querySelector('.data-image').textContent;
+    const tag = article.querySelector('.data-tag').textContent;
+    const title = article.querySelector('.data-title').textContent;
+    const content = article.querySelector('.data-content').innerHTML;
+
+    document.getElementById('modalImage').src = image;
+    document.getElementById('modalTag').textContent = tag;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalText').innerHTML = content;
+
+    document.getElementById('modal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    // 🔗 تحديث الرابط بدون إعادة تحميل الصفحة
+    if (pushState) {
+        history.pushState({ articleId: id }, "", `?article=${id}`);
+    }
+}
+
+function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+    document.body.style.overflow = 'auto';
+
+    // 🔙 إعادة الرابط الأصلي بدون المقالة
+    history.pushState({}, "", window.location.pathname);
+}
+
+// 📌 عند تحميل الصفحة، إذا وجد "?article=" افتح المقالة مباشرة
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const articleId = params.get("article");
+    if (articleId) {
+        openModal(articleId, false); // false حتى لا يضيف pushState جديد
+    }
+});
+
+        // CLICK EVENTS
+        document.querySelectorAll('.slide, .article-card').forEach(el => {
+            el.addEventListener('click', function() {
+                openModal(this.getAttribute('data-id'));
+            });
+        });
+
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // PROGRAMS
+        function switchProgram(programId) {
+            document.querySelectorAll('.program-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.program-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(programId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
