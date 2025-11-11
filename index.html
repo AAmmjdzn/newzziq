@@ -8,6 +8,72 @@
     <meta name="description" content="موقعنا يقدم آخر الأخبار المهمة والمقالات التحليلية في التكنولوجيا والسياسة والصحة. تصفح الآن أحدث المقالات.">
     <style>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* تغطي كامل الصفحة */
+    .maintenance-overlay {
+      position: fixed;
+      inset: 0;                /* top/right/bottom/left = 0 */
+      background: #ffffff;     /* أبيض بالكامل */
+      z-index: 999999;         /* فوق كل العناصر */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      direction: rtl;
+      user-select: none;
+      pointer-events: auto;
+    }
+
+    /* النص */
+    .maintenance-overlay .message {
+      text-align: center;
+      font-family: "Tahoma", "Segoe UI", Arial, sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #000000;
+      padding: 1rem 2rem;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         html {
             scroll-behavior: smooth !important;
         }
@@ -755,6 +821,38 @@
     </style>
 </head>
 <body>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+ <div class="maintenance-overlay">
+    <div class="message">الموقع في طور التطوير</div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <header>
         <div class="header-content">
             <img class="logo" src="https://i.ibb.co/PvG2mdRg/image.png" alt="نيوز">
@@ -1352,6 +1450,33 @@
 
 
 
+
+
+
+
+
+
+
+
+  <div id="content">
+    <h1>هذا المحتوى خلف الشاشة</h1>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E84XCXJKPC"></script>
 <script>
@@ -1506,6 +1631,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+
 
     </script>
 
